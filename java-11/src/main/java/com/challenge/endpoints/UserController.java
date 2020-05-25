@@ -31,14 +31,15 @@ public class UserController {
 		return ResponseEntity.ok(user);
 	}
 
-	@GetMapping
-	public ResponseEntity<List<User>> findByAccelerationNameOrCompanyId(
-			@RequestParam(required = false) String name, 
-			@RequestParam(required = false) Long companyId) {
-		if(companyId != null) {
-			return ResponseEntity.ok(userService.findByCompanyId(companyId));
-		}
-		return ResponseEntity.ok(userService.findByAccelerationName(name));
+
+	@GetMapping(params = "accelerationName")
+	public ResponseEntity<List<User>> findByAccelerationName(@RequestParam String accelerationName) {
+		return ResponseEntity.ok(userService.findByAccelerationName(accelerationName));
+	}
+
+	@GetMapping(params = "companyId")
+	public ResponseEntity<List<User>> findByCompanyId(@RequestParam Long companyId) {
+		return ResponseEntity.ok(userService.findByCompanyId(companyId));
 	}
 
 }
